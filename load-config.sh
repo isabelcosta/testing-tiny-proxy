@@ -6,6 +6,7 @@ fi
 
 /etc/init.d/tinyproxy stop
 
+echo "Loading $1 ..."
 tinyproxy -c $1 
 
 /etc/init.d/tinyproxy start
