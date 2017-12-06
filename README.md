@@ -1,10 +1,10 @@
 # Testing TinyProxy
 
-### Description
+## Description
 
 This repo is used to test [TinyProxy](https://github.com/tinyproxy/tinyproxy) both as a proxy and a reverse proxy.
 
-### Test
+## Test
 
 You may have to test this in root mode. My tests were made with a Debian machine.... [TODO]
 
