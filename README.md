@@ -17,7 +17,7 @@ You may have to test this in root mode. My tests were made using virtual machine
 
 ### Architecture
 
-![architecture-image](TinyProxyExp.png)
+![architecture-image](images/TinyProxyExp.png)
 
 The test consists of 4 virtual machines within the same network. 
 
@@ -103,4 +103,4 @@ debian@debian:~$ curl -v --proxy http://10.0.2.35:8888 http://10.0.2.36:8888/tes
 
 - If you want to use Wireshark to test this, you should see something like this:
 
-![wireshark-capture-image](images/WiresharkCapture.png)
+![wireshark-capture-image](images/WiresharkCapture.PNG)
