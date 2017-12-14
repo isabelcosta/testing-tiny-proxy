@@ -13,13 +13,13 @@ Configuration files:
 
 ## Test
 
-You may have to test this in root mode. My tests were made with a Debian machine.... [TODO]
+You may have to test this in root mode. My tests were made using virtual machines using Debian GNU/Linux 8.9 (jessie).
 
 ### Architecture
 
 ![architecture-image](TinyProxyExp.png)
 
-The test consists of 4 virtual machines within the same network... [TODO]
+The test consists of 4 virtual machines within the same network. 
 
 ### IPs
 
@@ -37,7 +37,7 @@ curl http://10.0.2.34:80
 #### Step by step example
 
 1. Run server
-Because in my example I run a simple apache server, I use the following command:
+Because in my example I run a simple apache server, I use the following command to start the web server:
 ```
 /usr/local/apache2/bin/apachectl start
 ```
@@ -47,9 +47,9 @@ Because in my example I run a simple apache server, I use the following command:
 To load the configuration you just have to run `tinyproxy -c <configuration-file>`.
 `load-config.sh` is a script to load the configuration file after stoping the proxy and before restarting the proxy.
 
-2.1. Load Proxy configuration
+2.1. Load Forward Proxy configuration
 ```
-sh load-config.sh proxy.conf
+sh load-config.sh forwardproxy.conf
 ```
 
 2.2. Load Reverse Proxy configuration
@@ -61,7 +61,7 @@ sh load-config.sh reverseproxy.conf
 
 - Test a http request `curl --proxy http://<proxy-ip>:<proxy-port> http://<reverse-proxy-ip>:<reverse-proxy-port>/path-to-server`
 ```
-curl --proxy http://10.0.2.35:8888 http://10.0.2.36:8888/test/
+curl -v --proxy http://10.0.2.35:8888 http://10.0.2.36:8888/test/
 ```
 
 ### How to test the system
@@ -71,3 +71,36 @@ curl --proxy http://10.0.2.35:8888 http://10.0.2.36:8888/test/
 ```
 cat /var/log/tinyproxy/tinyproxy.log
 ```
+
+- When it works you may get an output similar to the following. Note that I'm using an Apache web server, which returns a simple HTML page ("It works!" HTML page).
+
+```
+debian@debian:~$ curl -v --proxy http://10.0.2.35:8888 http://10.0.2.36:8888/test/
+* Hostname was NOT found in DNS cache
+*   Trying 10.0.2.35...
+* Connected to 10.0.2.35 (10.0.2.35) port 8888 (#0)
+> GET http://10.0.2.36:8888/test/ HTTP/1.1
+> User-Agent: curl/7.38.0
+> Host: 10.0.2.36:8888
+> Accept: */*
+> Proxy-Connection: Keep-Alive
+> 
+< HTTP/1.1 200 OK
+< Via: 1.0 tinyproxy2 (tinyproxy/1.8.3), 1.1 tinyproxy1 (tinyproxy/1.8.3)
+< Date: Thu, 14 Dec 2017 16:43:26 GMT
+< Last-Modified: Mon, 11 Jun 2007 18:53:14 GMT
+< Content-Length: 45
+< Set-Cookie: yummy_magical_cookie=/test/; path=/
+< ETag: "2d-432a5e4a73a80"
+< Accept-Ranges: bytes
+< Content-Type: text/html
+* Server Apache/2.4.29 (Unix) is not blacklisted
+< Server: Apache/2.4.29 (Unix)
+< 
+<html><body><h1>It works!</h1></body></html>
+* Connection #0 to host 10.0.2.35 left intact
+```
+
+- If you want to use Wireshark to test this, you should see something like this:
+
+
