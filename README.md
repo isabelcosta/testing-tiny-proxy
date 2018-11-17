@@ -104,3 +104,7 @@ debian@debian:~$ curl -v --proxy http://10.0.2.35:8888 http://10.0.2.36:8888/tes
 - If you want to use Wireshark to test this, you should see something like this:
 
 ![wireshark-capture-image](images/WiresharkCapture.PNG)
+
+## Author
+
+[@isabelcosta](https://github.com/isabelcosta) did this!
